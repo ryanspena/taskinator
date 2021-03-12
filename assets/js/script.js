@@ -111,7 +111,7 @@ var completeEditTask = function(taskName, taskType, taskId) {
     taskSelected.querySelector("span.task-type").textContent = taskType;
 
     for (var i = 0; i < tasks.length; i++) {
-        if (tasks[id].id === parseFloatInt(taskId)) {
+        if (tasks[id].id === parseInt(taskId)) {
             tasks[i].name = taskName;
             tasks[i].type = taskType;
         }
@@ -154,6 +154,13 @@ var taskStatusChangeHandler = function(event) {
         tasksCompletedEl.appendChild(taskSelected);
       }
 
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === parseInt(taskId)) {
+            tasks[i].status = statusValue;
+        }
+    }
+    console.log(tasks);
+
 };
 
 var editTask = function(taskId) {
@@ -177,6 +184,16 @@ var editTask = function(taskId) {
 var deleteTask = function(taskId) {
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
     taskSelected.remove()
+
+    var updatedTasksArr = [];
+
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].id !== parseInt(taskId)) {
+            updatedTasksArr.push(tasks[i]);
+        }
+    }
+
+    tasks = updatedTasksArr;
 };
     // createTaskEl(taskDataObj);
     // var listItemEl = document.createElement("li");
